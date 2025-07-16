@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Redeem Reward</title>
+  <style>
+    body {
+      margin: 0;
+      background: #f5f6fa;
+      font-family: 'Open Sans', sans-serif;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      padding: 15px;
+    }
+
+    .wrapper {
+      max-width: 420px;
+      width: 100%;
+      background: #ffffff;
+      border-radius: 10px;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+      padding: 30px;
+      border-top: 5px solid #4fd1c5;
+    }
+
+    .form-container {
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+
+    h1 {
+      text-align: center;
+      color: #2c5282;
+      font-size: 22px;
+      font-weight: 700;
+      margin: 0 0 12px;
+      text-transform: uppercase;
+    }
+
+    .info-box {
+      background: #ebf8ff;
+      border-left: 4px solid #4299e1;
+      padding: 10px 14px;
+      border-radius: 6px;
+      display: flex;
+      gap: 8px;
+      align-items: center;
+      font-size: 12px;
+      color: #2d3748;
+    }
+
+    .info-icon {
+      font-size: 16px;
+      color: #4299e1;
+    }
+
+    input {
+      padding: 10px 14px;
+      border: 1px solid #cbd5e0;
+      border-radius: 6px;
+      font-size: 14px;
+      width: 100%;
+      box-sizing: border-box;
+      transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    input:focus {
+      border-color: #4fd1c5;
+      box-shadow: 0 0 0 3px rgba(79, 209, 197, 0.2);
+      outline: none;
+    }
+
+    button {
+      padding: 12px;
+      border: none;
+      border-radius: 6px;
+      background: #4fd1c5;
+      color: #ffffff;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.3s ease, transform 0.2s ease;
+    }
+
+    button:hover {
+      background: #38b2ac;
+      transform: translateY(-2px);
+    }
+
+    button:active {
+      transform: translateY(0);
+    }
+
+    .success-container {
+      display: none;
+      background: #e6fffb;
+      border-radius: 8px;
+      padding: 18px;
+      text-align: center;
+      gap: 10px;
+      margin-top: 62px;
+    }
+
+    .checkmark {
+      font-size: 36px;
+      color: #48bb78;
+    }
+
+    .accent-text {
+      font-size: 18px;
+      font-weight: 700;
+      color: #48bb78;
+    }
+
+    .product-name {
+      font-size: 15px;
+      font-weight: 500;
+      color: #2c5282;
+    }
+
+    .details-box {
+      background: #f7fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 6px;
+      padding: 12px;
+      text-align: left;
+      margin-top: 10px;
+    }
+
+    .details-row {
+      margin-bottom: 6px;
+      font-size: 12px;
+      color: #4a5568;
+    }
+
+    .support-button {
+      background: #805ad5;
+      color: #ffffff;
+      border: none;
+      border-radius: 6px;
+      padding: 10px 16px;
+      font-size: 12px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.3s ease, transform 0.2s ease;
+      margin-top: 10px;
+    }
+
+    .support-button:hover {
+      background: #6b46c1;
+      transform: translateY(-2px);
+    }
+  </style>
+</head>
+<body>
+  <div class="wrapper">
+    <form class="form-container" id="redeemForm">
+      <h1>REDEEM YOUR REWARD!</h1>
+      <div class="info-box">
+        <div class="info-icon">⚠️</div>
+        <p>If you haven't already, complete /register in the Discord server to validate your request. Then enter your username to receive your reward!</p>
+      </div>
+      <input type="text" placeholder="Discord Username" id="discordUsername" required />
+      <button type="submit">Redeem for 500 Coins</button>
+    </form>
+
+    <div class="success-container" id="successContainer">
+      <div class="checkmark">✅</div>
+      <div class="accent-text">Success!</div>
+      <div class="product-name">Premium Role Activated</div>
+
+      <div class="details-box">
+        <div class="details-row"><strong>Username:</strong> <span id="successUsername"></span></div>
+        <div class="details-row"><strong>Order ID:</strong> <span id="orderId">XYZ987654321</span></div>
+        <div class="details-row"><strong>Reward:</strong> VIP Role (500 Coins)</div>
+      </div>
+
+      <button class="support-button" onclick="copyInfo()">📋 Copy Order Details</button>
+    </div>
+  </div>
+
+  <script>
+    const form = document.getElementById('redeemForm');
+    const successContainer = document.getElementById('successContainer');
+    const successUsername = document.getElementById('successUsername');
+    const discordUsername = document.getElementById('discordUsername');
+
+    form.addEventListener('submit', function(e) {
+      e.preventDefault();
+      const username = discordUsername.value.trim();
+      if (username) {
+        successUsername.textContent = username;
+        successContainer.style.display = 'block';
+        discordUsername.value = ''; // Clear the input field
+      }
+    });
+
+    function copyInfo() {
+      const username = successUsername.textContent;
+      const orderId = document.getElementById('orderId').textContent;
+      const info = `Username: ${username}\nOrder ID: ${orderId}\nReward: VIP Role (500 Coins)`;
+      navigator.clipboard.writeText(info).then(() => {
+        alert("✅ Copied! Paste this in a support ticket (in the Discord server) for a FASTER delivery.");
+      }).catch(err => {
+        console.error('Failed to copy: ', err);
+      });
+    }
+  </script>
+</body>
+</html> 
