@@ -386,14 +386,6 @@ nav{
     font-size: 0.8rem;
 }
 
-.quiz_section{
-    color: black;
-}
-
-.quiz_section button{
-    width: 10px;
-}
-
 /* Contact form */
 
 .container {
@@ -466,6 +458,7 @@ nav{
       border-radius: 10px;
       overflow: hidden;
       box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+      margin-top: 70px;
     }
 
     iframe {
